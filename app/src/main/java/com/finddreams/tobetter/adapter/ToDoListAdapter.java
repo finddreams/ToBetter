@@ -14,14 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ToDoListAdapter extends RecyclerView.Adapter<BaseBindingViewHolder<ItemTodolistBinding>> {
-    public List<ResponseTodoListBean.TodoListBeanXX> todoListBeans=new ArrayList<>();
-    public List<ResponseTodoListBean.TodoListBeanXX.TodoListBeanX> allListBeans=new ArrayList<>();
+    public List<ResponseTodoListBean.DataBean.TodoListBeanX.TodoListBean> allListBeans=new ArrayList<>();
 
-    public void setTodoListBeans(List<ResponseTodoListBean.TodoListBeanXX> todoListBeans) {
-        this.todoListBeans = todoListBeans;
+    public void setTodoListBeans( List<ResponseTodoListBean.DataBean.TodoListBeanX> todoListBeans) {
         for (int i = 0; i < todoListBeans.size(); i++) {
-            ResponseTodoListBean.TodoListBeanXX todoListBeanXX = todoListBeans.get(i);
-            List<ResponseTodoListBean.TodoListBeanXX.TodoListBeanX> todoList = todoListBeanXX.todoList;
+            ResponseTodoListBean.DataBean.TodoListBeanX todoListBeanXX = todoListBeans.get(i);
+            List<ResponseTodoListBean.DataBean.TodoListBeanX.TodoListBean> todoList = todoListBeanXX.todoList;
             allListBeans.addAll(todoList);
         }
         notifyDataSetChanged();
@@ -38,7 +36,7 @@ public class ToDoListAdapter extends RecyclerView.Adapter<BaseBindingViewHolder<
     @Override
     public void onBindViewHolder(@NonNull BaseBindingViewHolder<ItemTodolistBinding> baseBindingViewHolder, int i) {
         ItemTodolistBinding binding = baseBindingViewHolder.getBinding();
-        ResponseTodoListBean.TodoListBeanXX.TodoListBeanX todoListBeanX = allListBeans.get(i);
+        ResponseTodoListBean.DataBean.TodoListBeanX.TodoListBean todoListBeanX = allListBeans.get(i);
         binding.setList(todoListBeanX);
     }
 

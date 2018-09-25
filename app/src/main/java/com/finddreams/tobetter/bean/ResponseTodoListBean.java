@@ -2,21 +2,29 @@ package com.finddreams.tobetter.bean;
 
 import java.util.List;
 
-public class ResponseTodoListBean extends BaseResponseBean {
+public class ResponseTodoListBean extends BaseResponseResult {
+
+    /**
+     * data : {"doneList":[],"todoList":[{"date":1533571200000,"todoList":[{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2597,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2598,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2599,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2600,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2601,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2602,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2603,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2604,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2605,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2606,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2607,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2608,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2609,"status":0,"title":"todolist","type":0,"userId":10871}]},{"date":1535126400000,"todoList":[{"completeDate":null,"completeDateStr":"","content":"不拿","date":1535126400000,"dateStr":"2018-08-25","id":2632,"status":0,"title":"好的啊","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"不拿","date":1535126400000,"dateStr":"2018-08-25","id":2633,"status":0,"title":"好的","type":0,"userId":10871}]}],"type":0}
+     */
+
+    public DataBean data;
+
+    public static class DataBean {
         /**
-         * doneList : [{"date":1532793600000,"todoList":[{"completeDate":1533052800000,"completeDateStr":"2018-08-01","content":"这里可以记录笔记，备忘信息等。","date":1532793600000,"dateStr":"2018-07-29","id":82,"status":1,"title":"已经完成的事情","type":0,"userId":2}]}]
-         * todoList : [{"date":1532016000000,"todoList":[{"completeDate":null,"completeDateStr":"","content":"","date":1532016000000,"dateStr":"2018-07-20","id":73,"status":0,"title":"第一件未完成的事情","type":0,"userId":2}]},{"date":1532448000000,"todoList":[{"completeDate":null,"completeDateStr":"","content":"","date":1532448000000,"dateStr":"2018-07-25","id":80,"status":0,"title":"第二件未完成的事情","type":0,"userId":2}]}]
+         * doneList : []
+         * todoList : [{"date":1533571200000,"todoList":[{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2597,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2598,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2599,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2600,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2601,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2602,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2603,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2604,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2605,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2606,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2607,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2608,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2609,"status":0,"title":"todolist","type":0,"userId":10871}]},{"date":1535126400000,"todoList":[{"completeDate":null,"completeDateStr":"","content":"不拿","date":1535126400000,"dateStr":"2018-08-25","id":2632,"status":0,"title":"好的啊","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"不拿","date":1535126400000,"dateStr":"2018-08-25","id":2633,"status":0,"title":"好的","type":0,"userId":10871}]}]
          * type : 0
          */
 
         public int type;
-        public List<DoneListBean> doneList;
-        public List<TodoListBeanXX> todoList;
+        public List<TodoListBeanX> doneList;
+        public List<TodoListBeanX> todoList;
 
-        public static class DoneListBean {
+        public static class TodoListBeanX {
             /**
-             * date : 1532793600000
-             * todoList : [{"completeDate":1533052800000,"completeDateStr":"2018-08-01","content":"这里可以记录笔记，备忘信息等。","date":1532793600000,"dateStr":"2018-07-29","id":82,"status":1,"title":"已经完成的事情","type":0,"userId":2}]
+             * date : 1533571200000
+             * todoList : [{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2597,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2598,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2599,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2600,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2601,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2602,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2603,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2604,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2605,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2606,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2607,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2608,"status":0,"title":"todolist","type":0,"userId":10871},{"completeDate":null,"completeDateStr":"","content":"content","date":1533571200000,"dateStr":"2018-08-07","id":2609,"status":0,"title":"todolist","type":0,"userId":10871}]
              */
 
             public long date;
@@ -24,52 +32,16 @@ public class ResponseTodoListBean extends BaseResponseBean {
 
             public static class TodoListBean {
                 /**
-                 * completeDate : 1533052800000
-                 * completeDateStr : 2018-08-01
-                 * content : 这里可以记录笔记，备忘信息等。
-                 * date : 1532793600000
-                 * dateStr : 2018-07-29
-                 * id : 82
-                 * status : 1
-                 * title : 已经完成的事情
-                 * type : 0
-                 * userId : 2
-                 */
-
-                public long completeDate;
-                public String completeDateStr;
-                public String content;
-                public long date;
-                public String dateStr;
-                public int id;
-                public int status;
-                public String title;
-                public int type;
-                public int userId;
-            }
-        }
-
-        public static class TodoListBeanXX {
-            /**
-             * date : 1532016000000
-             * todoList : [{"completeDate":null,"completeDateStr":"","content":"","date":1532016000000,"dateStr":"2018-07-20","id":73,"status":0,"title":"第一件未完成的事情","type":0,"userId":2}]
-             */
-
-            public long date;
-            public List<TodoListBeanX> todoList;
-
-            public static class TodoListBeanX {
-                /**
                  * completeDate : null
                  * completeDateStr :
-                 * content :
-                 * date : 1532016000000
-                 * dateStr : 2018-07-20
-                 * id : 73
+                 * content : content
+                 * date : 1533571200000
+                 * dateStr : 2018-08-07
+                 * id : 2597
                  * status : 0
-                 * title : 第一件未完成的事情
+                 * title : todolist
                  * type : 0
-                 * userId : 2
+                 * userId : 10871
                  */
 
                 public String completeDate;
@@ -84,4 +56,5 @@ public class ResponseTodoListBean extends BaseResponseBean {
                 public int userId;
             }
         }
+    }
 }

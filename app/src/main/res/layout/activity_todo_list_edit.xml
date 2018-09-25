@@ -15,14 +15,14 @@
             android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="输入标题" />
+            android:hint="输入标题" />
 
         <EditText
             android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minLines="3"
-            android:text="输入内容" />
+            android:hint="输入内容" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,9 +31,9 @@
 
             <EditText
                 android:id="@+id/et_date"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:text="输入时间" />
+                android:hint="输入时间" />
 
             <Button
                 android:id="@+id/bt_select_time"
@@ -43,7 +43,7 @@
         </LinearLayout>
         <Button
             android:id="@+id/bt_submit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="提交" />
     </LinearLayout>
