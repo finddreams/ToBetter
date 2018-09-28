@@ -9,17 +9,14 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        ndk {
-            //根据需要 自行选择添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
-            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
-        }
         manifestPlaceholders = [
-
-                XG_ACCESS_ID:"2100312219",
-                XG_ACCESS_KEY : "AJVPL93H712B",
+                GETUI_APP_ID: "kwp7AwxaqL914s5vNzhax6",
+                GETUI_APP_KEY: "lY9FOR3Egv9Fr11MpV32s5",
+                GETUI_APP_SECRET: "T3uRPh4OIpASywmldTDui5"
         ]
-
+        ndk {
+            abiFilters  "armeabi", "armeabi-v7a", "x86_64"
+        }
     }
     buildTypes {
         release {
@@ -45,19 +42,8 @@ dependencies {
     implementation 'com.hannesdorfmann.mosby3:viewstate:3.1.0' // MVP + ViewState support
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.wdullaer:materialdatetimepicker:3.6.4'
-//信鸽jar，不包含厂商通道
-    compile  'com.tencent.xinge:xinge:4.0.3-release'
-    //compile'com.tencent.xinge:xinge:4.2.0-beta'
-    //信鸽jar，包含厂商通道
-    compile 'com.tencent.xinge:xinge:4.0.3-otherpush-release'
-    //compile 'com.tencent.xinge:xinge:4.2.0-otherpush-beta'
-    //jg包
-    compile'com.tencent.jg:jg:1.1'
-    //wup包
-    compile 'com.tencent.wup:wup:1.0.0.E-release'
-    //mid包
-    compile 'com.tencent.mid:mid:4.0.7'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.getui:sdk:2.12.5.0'
 }
