@@ -5,7 +5,7 @@
 
         <variable
             name="list"
-            type="com.finddreams.tobetter.bean.ResponseTodoListBean.DataBean.TodoListBeanX.TodoListBean" />
+            type="com.finddreams.tobetter.bean.ResponseTodoListBean.TodoListBeanX.TodoListBean" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

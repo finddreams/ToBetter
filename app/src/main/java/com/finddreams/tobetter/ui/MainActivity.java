@@ -9,22 +9,21 @@ import android.view.View;
 
 import com.finddreams.tobetter.R;
 import com.finddreams.tobetter.adapter.ToDoListAdapter;
-import com.finddreams.tobetter.app.BaseCallBack;
+import com.finddreams.tobetter.app.HttpManager;
 import com.finddreams.tobetter.app.MyApplication;
-import com.finddreams.tobetter.bean.BaseResponseResult;
+import com.finddreams.tobetter.bean.BaseApiResult;
 import com.finddreams.tobetter.bean.ResponseTodoListBean;
+import com.finddreams.tobetter.bean.ResponseUserDataBean;
+import com.finddreams.tobetter.bean.ResultBean;
+import com.finddreams.tobetter.bean.TestApiResult1;
 import com.finddreams.tobetter.databinding.ActivityMainBinding;
 import com.orhanobut.logger.Logger;
 import com.zhouyou.http.EasyHttp;
 import com.zhouyou.http.callback.CallBackProxy;
-import com.zhouyou.http.callback.CallClazzProxy;
 import com.zhouyou.http.callback.SimpleCallBack;
 import com.zhouyou.http.exception.ApiException;
-import com.zhouyou.http.model.ApiResult;
 
 import java.util.List;
-
-import io.reactivex.Observable;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -50,37 +49,53 @@ public class MainActivity extends AppCompatActivity {
 
     private void login() {
         EasyHttp.post("/user/login").params("username", "finddreams").params("password", "www2008com")
-                .baseUrl(MyApplication.baseurl).execute(new SimpleCallBack<String>() {
-            @Override
-            public void onError(ApiException e) {
+                .baseUrl(MyApplication.baseurl)
+                .execute(new CallBackProxy<BaseApiResult<ResponseUserDataBean>, ResponseUserDataBean>(new SimpleCallBack<ResponseUserDataBean>() {
+                    @Override
+                    public void onError(ApiException e) {
+                        Logger.d(e.getMessage());
+                    }
 
-            }
+                    @Override
+                    public void onSuccess(ResponseUserDataBean response) {
+                        Logger.d(response.getUsername());
+                        getToDoList();
+                    }
+                }) {
+                });
+        HttpManager.post("/user/login").params("username", "finddreams").params("password", "www2008com").baseUrl(MyApplication.baseurl)
+                .execute(new SimpleCallBack<ResponseUserDataBean>() {
+                    @Override
+                    public void onError(ApiException e) {
+                        Logger.d(e.getMessage());
 
-            @Override
-            public void onSuccess(String s) {
-                Logger.d(s);
-                getToDoList();
-            }
+                    }
 
-        });
+                    @Override
+                    public void onSuccess(ResponseUserDataBean responseUserDataBean) {
+                        Logger.d(responseUserDataBean.getUsername());
+                        getToDoList();
+                    }
+                });
     }
 
     private void getToDoList() {
         EasyHttp.post("/lg/todo/list/0/json").baseUrl(MyApplication.baseurl)
-                .execute(new SimpleCallBack<String>() {
+                .execute(new CallBackProxy<BaseApiResult<ResponseTodoListBean>, ResponseTodoListBean>(new SimpleCallBack<ResponseTodoListBean>() {
                     @Override
                     public void onError(ApiException e) {
-
+                        Logger.d(e.getMessage());
                     }
 
                     @Override
-                    public void onSuccess(String responseTodoListBean) {
-                        //请求成功
-//                        List<ResponseTodoListBean.DataBean.TodoListBeanX> todoList = responseTodoListBean.data.todoList;
-//                        toDoListAdapter.setTodoListBeans(todoList);
+                    public void onSuccess(ResponseTodoListBean response) {
+                        if (response != null) {
+                            List<ResponseTodoListBean.TodoListBeanX> todoList = response.getTodoList();
+                            toDoListAdapter.setTodoListBeans(todoList);
+                        }
                     }
+                }) {
                 });
-
     }
 
 }

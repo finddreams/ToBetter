@@ -1,13 +1,12 @@
 package com.finddreams.tobetter.app;
 
-import com.finddreams.tobetter.bean.BaseResponseResult;
+import com.finddreams.tobetter.bean.BaseApiResult;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.zhouyou.http.callback.CallBack;
-import com.zhouyou.http.callback.SimpleCallBack;
 import com.zhouyou.http.exception.ApiException;
 
-public abstract class BaseCallBack<T extends BaseResponseResult> extends CallBack<String> {
+public abstract class BaseCallBack<T extends BaseApiResult> extends CallBack<String> {
 
     @Override
     public void onSuccess(String s) {
