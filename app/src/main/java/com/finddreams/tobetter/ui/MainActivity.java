@@ -3,6 +3,7 @@ package com.finddreams.tobetter.ui;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -14,11 +15,13 @@ import com.finddreams.tobetter.app.MyApplication;
 import com.finddreams.tobetter.bean.BaseApiResult;
 import com.finddreams.tobetter.bean.ResponseTodoListBean;
 import com.finddreams.tobetter.bean.ResponseUserDataBean;
-import com.finddreams.tobetter.bean.ResultBean;
-import com.finddreams.tobetter.bean.TestApiResult1;
 import com.finddreams.tobetter.databinding.ActivityMainBinding;
 import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.zhouyou.http.EasyHttp;
+import com.zhouyou.http.cache.model.CacheMode;
+import com.zhouyou.http.cache.model.CacheResult;
 import com.zhouyou.http.callback.CallBackProxy;
 import com.zhouyou.http.callback.SimpleCallBack;
 import com.zhouyou.http.exception.ApiException;
@@ -45,6 +48,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, TodoListEditActivity.class));
             }
         });
+        binding.refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                getToDoList();
+            }
+        });
     }
 
     private void login() {
@@ -63,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }) {
                 });
-        HttpManager.post("/user/login").params("username", "finddreams").params("password", "www2008com").baseUrl(MyApplication.baseurl)
-                .execute(new SimpleCallBack<ResponseUserDataBean>() {
+        HttpManager.post("/user/login").params("username", "finddreams").params("password", "www2008com").baseUrl(MyApplication.baseurl).cacheMode(CacheMode.FIRSTREMOTE)
+                .execute(new SimpleCallBack<CacheResult<ResponseUserDataBean>>() {
                     @Override
                     public void onError(ApiException e) {
                         Logger.d(e.getMessage());
@@ -72,10 +86,13 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onSuccess(ResponseUserDataBean responseUserDataBean) {
-                        Logger.d(responseUserDataBean.getUsername());
+                    public void onSuccess(CacheResult<ResponseUserDataBean> responseUserDataBeanCacheResult) {
+                       if (responseUserDataBeanCacheResult.isFromCache) {
+                            Logger.d(responseUserDataBeanCacheResult.data.toString());
+                        }
                         getToDoList();
                     }
+
                 });
     }
 
@@ -85,10 +102,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onError(ApiException e) {
                         Logger.d(e.getMessage());
+                        binding.refreshLayout.finishRefresh();
                     }
 
                     @Override
                     public void onSuccess(ResponseTodoListBean response) {
+                        binding.refreshLayout.finishRefresh();
                         if (response != null) {
                             List<ResponseTodoListBean.TodoListBeanX> todoList = response.getTodoList();
                             toDoListAdapter.setTodoListBeans(todoList);
