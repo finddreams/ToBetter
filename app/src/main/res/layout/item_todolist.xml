@@ -10,45 +10,42 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="@dimen/dp_80">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="@dimen/dp_80"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:text="@{list.title }" />
 
             <TextView
                 android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{list.content }" />
+                android:layout_marginLeft="20dp"
+
+                android:text="@{list.content}" />
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
+                android:layout_marginLeft="20dp"
+
                 android:layout_height="wrap_content"
                 android:text="@{list.dateStr }" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="#E5E5E5" />
-
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/item_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:src="@drawable/delete_todo" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="#E5E5E5" />
     </RelativeLayout>
 </layout>

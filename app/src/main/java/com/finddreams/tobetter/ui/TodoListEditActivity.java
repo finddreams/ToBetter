@@ -14,8 +14,6 @@ import com.finddreams.tobetter.bean.ResponseAddList;
 import com.finddreams.tobetter.databinding.ActivityTodoListEditBinding;
 import com.orhanobut.logger.Logger;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.zhouyou.http.EasyHttp;
-import com.zhouyou.http.callback.CallBackProxy;
 import com.zhouyou.http.callback.SimpleCallBack;
 import com.zhouyou.http.exception.ApiException;
 
@@ -37,7 +35,7 @@ public class TodoListEditActivity extends AppCompatActivity implements DatePicke
         final int year = now.get(Calendar.YEAR);
         final int month = now.get(Calendar.MONTH) + 1;
         final int day = now.get(Calendar.DAY_OF_MONTH);
-       setDate(year,month,day);
+        setDate(year, month, day);
         binding.todoDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,12 +54,22 @@ public class TodoListEditActivity extends AppCompatActivity implements DatePicke
                 addToDoList();
             }
         });
+        binding.title.setText("添加TODO");
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void addToDoList() {
+        String content = binding.todoDes.getText().toString();
+        String level = Constant.Important_Level_A;
+        content += level;
         HttpManager.post("/lg/todo/add/json")
                 .params("title", binding.todoName.getText().toString())
-                .params("content", binding.todoDes.getText().toString())
+                .params("content", content)
                 .params("date", binding.todoDate.getText().toString())
                 .baseUrl(MyApplication.baseurl)
                 .execute(new SimpleCallBack<ResponseAddList>() {
@@ -73,10 +81,10 @@ public class TodoListEditActivity extends AppCompatActivity implements DatePicke
                     @Override
                     public void onSuccess(ResponseAddList s) {
                         Logger.d(s);
-                        showToast(s.content);
+                        showToast("添加成功！");
+                        finish();
                     }
                 });
-
 
 
     }

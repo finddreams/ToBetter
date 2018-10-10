@@ -11,7 +11,7 @@ public class ResponseTodoListBean {
      */
 
     private int type;
-    private List<?> doneList;
+    private List<TodoListBeanX> doneList;
     private List<TodoListBeanX> todoList;
 
     public int getType() {
@@ -26,7 +26,7 @@ public class ResponseTodoListBean {
         return doneList;
     }
 
-    public void setDoneList(List<?> doneList) {
+    public void setDoneList(List<TodoListBeanX> doneList) {
         this.doneList = doneList;
     }
 
@@ -77,7 +77,7 @@ public class ResponseTodoListBean {
              * userId : 10871
              */
 
-            private Object completeDate;
+            private String completeDate;
             private String completeDateStr;
             private String content;
             private long date;
@@ -87,12 +87,14 @@ public class ResponseTodoListBean {
             private String title;
             private int type;
             private int userId;
+            public String level;
+            public boolean isTitle;
 
-            public Object getCompleteDate() {
+            public String getCompleteDate() {
                 return completeDate;
             }
 
-            public void setCompleteDate(Object completeDate) {
+            public void setCompleteDate(String completeDate) {
                 this.completeDate = completeDate;
             }
 
