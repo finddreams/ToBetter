@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.finddreams.tobetter.R;
+import com.finddreams.tobetter.app.Constant;
 import com.finddreams.tobetter.app.HttpManager;
 import com.finddreams.tobetter.app.MyApplication;
 import com.finddreams.tobetter.bean.ResponseAddList;
@@ -28,20 +29,28 @@ public class TodoListEditActivity extends AppCompatActivity implements DatePicke
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_todo_list_edit);
-        binding.btSelectTime.setOnClickListener(new View.OnClickListener() {
+        initView();
+    }
+
+    private void initView() {
+        Calendar now = Calendar.getInstance();
+        final int year = now.get(Calendar.YEAR);
+        final int month = now.get(Calendar.MONTH) + 1;
+        final int day = now.get(Calendar.DAY_OF_MONTH);
+       setDate(year,month,day);
+        binding.todoDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
                 DatePickerDialog dpd = DatePickerDialog.newInstance(
                         TodoListEditActivity.this,
-                        now.get(Calendar.YEAR), // Initial year selection
-                        now.get(Calendar.MONTH), // Initial month selection
-                        now.get(Calendar.DAY_OF_MONTH) // Inital day selection
+                        year,
+                        month, // Initial month selection
+                        day // Inital day selection
                 );
                 dpd.show(getFragmentManager(), "Datepickerdialog");
             }
         });
-        binding.btSubmit.setOnClickListener(new View.OnClickListener() {
+        binding.saveTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addToDoList();
@@ -51,9 +60,9 @@ public class TodoListEditActivity extends AppCompatActivity implements DatePicke
 
     private void addToDoList() {
         HttpManager.post("/lg/todo/add/json")
-                .params("title", binding.etTitle.getText().toString())
-                .params("content", binding.etContent.getText().toString())
-                .params("date", binding.etDate.getText().toString())
+                .params("title", binding.todoName.getText().toString())
+                .params("content", binding.todoDes.getText().toString())
+                .params("date", binding.todoDate.getText().toString())
                 .baseUrl(MyApplication.baseurl)
                 .execute(new SimpleCallBack<ResponseAddList>() {
                     @Override
@@ -69,12 +78,17 @@ public class TodoListEditActivity extends AppCompatActivity implements DatePicke
                 });
 
 
+
     }
 
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int i, int i1, int i2) {
-        String date = i + "-" + (i1 + 1) + "-" + i2;
-        binding.etDate.setText(date);
+        setDate(i, i1, i2);
+    }
+
+    private void setDate(int year, int month, int day) {
+        String date = year + "-" + month + "-" + day;
+        binding.todoDate.setText(date);
         Logger.d(date);
     }
 

@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">ToBetter</string>
+    <string name="to_do_list">待办清单</string>
+    <string name="complete_list">完成清单</string>
+    <string name="splash_message">高效率&#160;慢生活</string>
+    <string name="fund">基金</string>
+    <string name="register_success">注册成功</string>
+    <string name="input_todo_name">输入待办名称，如：准备演示PPT</string>
+    <string name="input_todo_des">输入待办详情，非必填，如：\n1、制作演示PPT\n2、预定会议室\n3、通知参加会议人员\n4、提前10分钟准备会议环境</string>
+    <string name="save">保存</string>
+    <string name="add_todo">添加待办清单</string>
+    <string name="update_todo">清单详细</string>
+    <string name="input_todo_name_toast">请输入待办名称</string>
+    <string name="add_todo_success">添加成功</string>
+    <string name="update_todo_success">更新成功</string>
+    <string name="delete_todo_success">删除成功</string>
+    <string name="done_todo_success">标记完成</string>
+    <string name="notdo_todo_success">撤销完成</string>
+    <string name="done_todo_date">完成时间：%s</string>
+    <string name="account_name">账号信息</string>
+    <string name="modify_password">修改密码</string>
 </resources>
