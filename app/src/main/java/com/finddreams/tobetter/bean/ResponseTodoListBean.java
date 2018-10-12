@@ -22,7 +22,7 @@ public class ResponseTodoListBean {
         this.type = type;
     }
 
-    public List<?> getDoneList() {
+    public List<TodoListBeanX> getDoneList() {
         return doneList;
     }
 

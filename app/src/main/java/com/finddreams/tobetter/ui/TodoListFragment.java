@@ -44,12 +44,14 @@ public class TodoListFragment extends BaseFragment {
     private FragmentTodolistBinding binding;
     private ToDoListAdapter toDoListAdapter;
     public List<ResponseTodoListBean.TodoListBeanX.TodoListBean> allListBeans=new ArrayList<>();
+    private boolean isDone;
 
-    public static TodoListFragment newInstance() {
+    public static TodoListFragment newInstance(boolean isDone) {
 
         Bundle args = new Bundle();
 
         TodoListFragment fragment = new TodoListFragment();
+        args.putBoolean("isDone",isDone);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,7 +65,10 @@ public class TodoListFragment extends BaseFragment {
     }
 
     private void initView() {
-
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            isDone = arguments.getBoolean("isDone");
+        }
         binding.refreshLayout.setOnRefreshListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
@@ -101,25 +106,28 @@ public class TodoListFragment extends BaseFragment {
                 swipeRightMenu.addMenuItem(addItem); // 添加菜单到右侧。
             }
         });
-        binding.recycleView.setSwipeMenuItemClickListener(new SwipeMenuItemClickListener() {
-            @Override
-            public void onItemClick(SwipeMenuBridge menuBridge) {
-                int position = menuBridge.getPosition();
-                // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
-                menuBridge.closeMenu();
-                int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
-                if (!allListBeans.isEmpty()) {
-                    ResponseTodoListBean.TodoListBeanX.TodoListBean todoListBean = allListBeans.get(adapterPosition);
-                    if (position == 0) {
-                        removeItem(todoListBean.getId());
-                    } else if (position == 1) {
+            binding.recycleView.setSwipeMenuItemClickListener(new SwipeMenuItemClickListener() {
+                @Override
+                public void onItemClick(SwipeMenuBridge menuBridge) {
+                    if (!isDone) {
 
+                        int position = menuBridge.getPosition();
+                        // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
+                        menuBridge.closeMenu();
+                        int adapterPosition = menuBridge.getAdapterPosition(); // RecyclerView的Item的position。
+                        if (!allListBeans.isEmpty()) {
+                            ResponseTodoListBean.TodoListBeanX.TodoListBean todoListBean = allListBeans.get(adapterPosition);
+                            if (position == 0) {
+                                removeItem(todoListBean.getId());
+                            } else if (position == 1) {
+                                setItemFinish(todoListBean.getId());
+                            }
+                            allListBeans.remove(todoListBean);
+                            toDoListAdapter.notifyItemRemoved(adapterPosition);
+                        }
                     }
-                    allListBeans.remove(todoListBean);
-                    toDoListAdapter.notifyItemRemoved(adapterPosition);
                 }
-            }
-        });
+            });
 //        binding.recycleView.setItemViewSwipeEnabled(true); // 策划删除，默认关闭。
     }
 
@@ -142,6 +150,7 @@ public class TodoListFragment extends BaseFragment {
     }
     @Override
     protected void initData() {
+
         toDoListAdapter = new ToDoListAdapter();
         binding.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recycleView.setAdapter(toDoListAdapter);
@@ -166,8 +175,14 @@ public class TodoListFragment extends BaseFragment {
                     @Override
                     public void onSuccess(ResponseTodoListBean response) {
                         binding.refreshLayout.finishRefresh();
+
                         if (response != null) {
-                            List<ResponseTodoListBean.TodoListBeanX> todoList = response.getTodoList();
+                            List<ResponseTodoListBean.TodoListBeanX> todoList;
+                            if (isDone){
+                                todoList=response.getDoneList();
+                            }else {
+                                todoList = response.getTodoList();
+                            }
                             setTodoListBeans(todoList);
                         }
                     }
@@ -186,12 +201,26 @@ public class TodoListFragment extends BaseFragment {
                     @Override
                     public void onSuccess(String s) {
                         Logger.d(s);
-//                        EventBus.getDefault().post(new UpdateDataEvent());
                     }
                 });
 
     }
+    public void setItemFinish(int todoId){
+        HttpManager.post(String.format(Constant.SetDone_TODO_URI, todoId))
+                .baseUrl(MyApplication.baseurl)
+                .execute(new SimpleCallBack<String>() {
+                    @Override
+                    public void onError(ApiException e) {
 
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        Logger.d(s);
+                    }
+                });
+
+    }
     public void setTodoListBeans(List<ResponseTodoListBean.TodoListBeanX> todoListBeans){
         allListBeans.clear();
         for (int i = 0; i < todoListBeans.size(); i++) {

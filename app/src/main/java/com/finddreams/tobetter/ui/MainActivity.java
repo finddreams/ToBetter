@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         List<Fragment> fragments = new ArrayList<>(3);
-        fragments.add(TodoListFragment.newInstance());
-        fragments.add(TodoListFragment.newInstance());
-        fragments.add(TodoListFragment.newInstance());
+        fragments.add(TodoListFragment.newInstance(false));
+        fragments.add(TodoListFragment.newInstance(false));
+        fragments.add(TodoListFragment.newInstance(false));
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager(), fragments);
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.setOffscreenPageLimit(3);

@@ -2,6 +2,7 @@ package com.finddreams.tobetter.app;
 
 public class Constant {
     public static final String DELETE_TODO_URI = "/lg/todo/delete/%d/json";
+    public static final String SetDone_TODO_URI = "/lg/todo/done/%d//json";
 
 
     public static final String Important_Level_A = "[A]";
