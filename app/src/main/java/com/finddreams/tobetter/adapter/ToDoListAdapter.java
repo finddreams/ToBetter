@@ -25,6 +25,7 @@ import com.zhouyou.http.exception.ApiException;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ToDoListAdapter extends RecyclerView.Adapter<BaseBindingViewHolder<ViewDataBinding>> {
@@ -34,39 +35,30 @@ public class ToDoListAdapter extends RecyclerView.Adapter<BaseBindingViewHolder<
     private int Type_Title = 2;
 
     public void setTodoListBeans(List<ResponseTodoListBean.TodoListBeanX.TodoListBean> allListBeans) {
-        this.allListBeans .clear();
+        this.allListBeans.clear();
         this.allListBeans.addAll(allListBeans);
         Logger.d(this.allListBeans);
         notifyDataSetChanged();
     }
-
-    @NonNull
     @Override
-    public BaseBindingViewHolder<ViewDataBinding> onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
-        int itemViewType = getItemViewType(position);
+    public BaseBindingViewHolder<ViewDataBinding> onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         ViewDataBinding viewDataBinding;
         context = viewGroup.getContext();
-        if (itemViewType == Type_Title) {
+        if (viewType == Type_Title) {
             viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_todolist_title, viewGroup, false);
             return new BaseBindingViewHolder<>(viewDataBinding);
-        } else if (itemViewType==Type_Item){
-            viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_todolist, viewGroup, false);
-            return new BaseBindingViewHolder<>(viewDataBinding);
         }
-        return null;
+        viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_todolist, viewGroup, false);
+        return new BaseBindingViewHolder<>(viewDataBinding);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position<allListBeans.size()) {
-            ResponseTodoListBean.TodoListBeanX.TodoListBean todoListBean = allListBeans.get(position);
-            if (todoListBean.isTitle) {
-                return Type_Title;
-            }else {
-                return Type_Item;
-            }
+        ResponseTodoListBean.TodoListBeanX.TodoListBean todoListBean = allListBeans.get(position);
+        if (todoListBean.isTitle) {
+            return Type_Title;
         }
-        return 0;
+        return Type_Item;
     }
 
 
@@ -77,7 +69,10 @@ public class ToDoListAdapter extends RecyclerView.Adapter<BaseBindingViewHolder<
         String level = todoListBeanX.level;
         if (itemViewType == Type_Title) {
             ItemTodolistTitleBinding binding = (ItemTodolistTitleBinding) baseBindingViewHolder.getBinding();
-            binding.setContent(todoListBeanX.getDateStr());
+            long date = todoListBeanX.getDate();
+            Calendar instance = Calendar.getInstance();
+            instance.setTimeInMillis(date);
+            binding.setContent(instance.get(Calendar.YEAR)+"-"+(instance.get(Calendar.MONTH)+1)+"-"+instance.get(Calendar.DAY_OF_MONTH));
         } else {
             ItemTodolistBinding binding = (ItemTodolistBinding) baseBindingViewHolder.getBinding();
             if (TextUtils.equals(level, Constant.Important_Level_A)) {

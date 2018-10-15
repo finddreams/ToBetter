@@ -99,7 +99,7 @@ public class TodoListFragment extends BaseFragment {
 
                 SwipeMenuItem addItem = new SwipeMenuItem(context)
                         .setBackground(R.drawable.selector_green)
-                        .setText("添加")
+                        .setText("完成")
                         .setTextColor(Color.WHITE)
                         .setWidth(width)
                         .setHeight(height);
@@ -122,15 +122,20 @@ public class TodoListFragment extends BaseFragment {
                             } else if (position == 1) {
                                 setItemFinish(todoListBean.getId());
                             }
-                            allListBeans.remove(todoListBean);
-                            toDoListAdapter.notifyItemRemoved(adapterPosition);
+
                         }
                     }
                 }
             });
 //        binding.recycleView.setItemViewSwipeEnabled(true); // 策划删除，默认关闭。
     }
+    @Override
+    protected void initData() {
 
+        toDoListAdapter = new ToDoListAdapter();
+        binding.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recycleView.setAdapter(toDoListAdapter);
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -148,13 +153,7 @@ public class TodoListFragment extends BaseFragment {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-    @Override
-    protected void initData() {
 
-        toDoListAdapter = new ToDoListAdapter();
-        binding.recycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.recycleView.setAdapter(toDoListAdapter);
-    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(UpdateDataEvent event) {
         /* Do something */
@@ -201,6 +200,7 @@ public class TodoListFragment extends BaseFragment {
                     @Override
                     public void onSuccess(String s) {
                         Logger.d(s);
+                        getToDoList();
                     }
                 });
 
@@ -217,6 +217,7 @@ public class TodoListFragment extends BaseFragment {
                     @Override
                     public void onSuccess(String s) {
                         Logger.d(s);
+                        getToDoList();
                     }
                 });
 
@@ -227,11 +228,11 @@ public class TodoListFragment extends BaseFragment {
             ResponseTodoListBean.TodoListBeanX todoListBeanXX = todoListBeans.get(i);
             ResponseTodoListBean.TodoListBeanX.TodoListBean title = new ResponseTodoListBean.TodoListBeanX.TodoListBean();
             title.isTitle=true;
-            title.setDateStr(todoListBeanXX.getDate()+"");
+            title.setDate(todoListBeanXX.getDate());
             allListBeans.add(title);
             List<ResponseTodoListBean.TodoListBeanX.TodoListBean> todoList = todoListBeanXX.getTodoList();
             for (int j = 0; j < todoList.size(); j++) {
-                ResponseTodoListBean.TodoListBeanX.TodoListBean todoListBean = todoList.get(i);
+                ResponseTodoListBean.TodoListBeanX.TodoListBean todoListBean = todoList.get(j);
                 String content = todoListBean.getContent();
                 if (content.contains(Constant.Important_Level_A)){
                     todoListBean.level=Constant.Important_Level_A;
@@ -249,7 +250,7 @@ public class TodoListFragment extends BaseFragment {
                 todoListBean.setContent(content);
                 allListBeans.add(todoListBean);
             }
-            toDoListAdapter.setTodoListBeans(allListBeans);
         }
+        toDoListAdapter.setTodoListBeans(allListBeans);
     }
 }
